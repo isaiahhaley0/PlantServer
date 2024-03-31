@@ -120,6 +120,9 @@ def plant():
     if request.method =='PUT':
         content = request.json
         planthandler.add_plant(content)
+        newfolder = "/mnt/share/Plant/"+content["name"]
+        if not os.path.exists(newfolder):
+            os.makedirs(newfolder)
     elif request.method =='GET':
         plants = planthandler.get_all()
         return json.dumps(plants)

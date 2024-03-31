@@ -1,5 +1,5 @@
 # This is a sample Python script.
-
+import json
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import time
@@ -122,7 +122,7 @@ def plant():
         planthandler.add_plant(content)
     elif request.method =='GET':
         plants = planthandler.get_all()
-        return make_response(jsonify(plants),200)
+        return json.dumps(plants)
     return make_response(200)
 
 

@@ -9,4 +9,7 @@ class PlantHandler:
         self.dbh.insert_plant(plant_json)
 
     def get_all(self):
-        return self.dbh.get_plants()
+        plants = list(self.dbh.get_plants())
+        for plant in plants:
+            plant['_id'] = str(plant['_id'])
+        return plants

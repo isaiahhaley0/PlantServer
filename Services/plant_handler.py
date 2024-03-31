@@ -1,4 +1,4 @@
-from DBHandler import DBHandler
+from Services.DBHandler import DBHandler
 
 
 class PlantHandler:

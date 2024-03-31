@@ -1,5 +1,4 @@
 from PIL import Image
-import tensorflow as tf
 from datetime import datetime, timedelta
 class Image_Bucket:
     def __init__(self, days_start, days_end, min_light, max_light):

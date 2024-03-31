@@ -9,6 +9,7 @@ import Services.DBHandler as mh
 import Services.Stats as st
 import Services.CameraControl as CC
 import Services.image_handler as ih
+import Services.plant_handler as ph
 from PIL import Image
 import io
 import os
@@ -116,6 +117,8 @@ def water_plants():
 @app.route("/plants",methods=['PUT'])
 def plant():
     content = request.json
+    planthandler = ph.PlantHandler()
+    planthandler.add_plant(content)
     return make_response(200)
 
 

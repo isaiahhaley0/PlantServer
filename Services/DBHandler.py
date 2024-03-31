@@ -88,3 +88,8 @@ class DBHandler:
     def Record_Watering(self, content):
         coll = self.__db.water_record
         coll.insert_one(content)
+
+    def insert_plant(self, plant_json):
+        coll = self.__db.plants
+        coll.insert_one(plant_json)
+        pass

@@ -93,3 +93,7 @@ class DBHandler:
         coll = self.__db.plants
         coll.insert_one(plant_json)
         pass
+
+    def get_plants(self):
+        coll = self.__db.plants
+        return coll.find({})

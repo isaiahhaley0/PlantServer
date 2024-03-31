@@ -114,11 +114,15 @@ def water_plants():
     return make_response(200)
 
 
-@app.route("/plants",methods=['PUT'])
+@app.route("/plants",methods=['PUT','GET'])
 def plant():
-    content = request.json
     planthandler = ph.PlantHandler()
-    planthandler.add_plant(content)
+    if request.method =='PUT':
+        content = request.json
+        planthandler.add_plant(content)
+    elif request.method =='GET':
+        plants = planthandler.get_all()
+        return make_response(jsonify(plants),200)
     return make_response(200)
 
 

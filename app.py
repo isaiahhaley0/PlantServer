@@ -112,6 +112,13 @@ def water_plants():
     res = {'status':'Watered'}
     return make_response(200)
 
+
+@app.route("/plants",methods=['PUT'])
+def plant():
+    content = request.json
+    return make_response(200)
+
+
 @app.route("/stats")
 def get_stats():
     read = mhd.get_readings()

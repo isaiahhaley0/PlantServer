@@ -1,4 +1,5 @@
 import datetime
+import os
 import time
 import pymongo
 import base64
@@ -7,7 +8,7 @@ class DBHandler:
     def __init__(self):
         self.__started = False;
         self.__client = pymongo.MongoClient(
-            "mongodb+srv://plantum:isaiah@cluster0.flbwlsp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+            os.environ['MONGODB_URI'])
         self.__db = self.__client.plantum
 
     def Insert_Reading(self, reading):

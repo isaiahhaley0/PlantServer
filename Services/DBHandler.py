@@ -10,6 +10,7 @@ class DBHandler:
         self.__client = pymongo.MongoClient(
             os.environ['MONGODB_URI'])
         self.__db = self.__client.plantum
+        print("running")
 
     def Insert_Reading(self, reading):
         self.__db = self.__client.plantum

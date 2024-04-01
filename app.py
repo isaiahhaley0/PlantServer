@@ -1,4 +1,5 @@
 # This is a sample Python script.
+import base64
 import json
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -13,6 +14,7 @@ import Services.plant_handler as ph
 from PIL import Image
 import io
 import os
+import  platform
 app = Flask(__name__)
 
 
@@ -119,25 +121,61 @@ def plant():
     planthandler = ph.PlantHandler()
     if request.method =='PUT':
         content = request.json
-        newfolder = "/mnt/share/Plant/"+content["name"]
-        content["plant_photos"] = newfolder
-        planthandler.add_plant(content)
-        if not os.path.exists(newfolder):
-            os.makedirs(newfolder)
+        if(platform.system() == "Windows"):
+            newfolder = "Z:\\Plant\\Plants\\" + content["Name"]
+
+            lnix = "/mnt/share/Plant/Plants/" + content["Name"]
+            content["plant_photos"] = lnix
+            planthandler.add_plant(content)
+            if not os.path.exists(newfolder):
+                os.makedirs(newfolder)
+        else:
+            newfolder = "/mnt/share/Plant/Plants/" + content["Name"]
+            content["plant_photos"] = newfolder
+            planthandler.add_plant(content)
+            if not os.path.exists(newfolder):
+                os.makedirs(newfolder)
+        data = {'message': 'Done', 'code': 'SUCCESS'}
+        return make_response(jsonify(data), 200)
     elif request.method =='GET':
         plants = planthandler.get_all()
         return json.dumps(plants)
-    return make_response(200)
+
+
 
 @app.route("/plants/photos",methods=['PUT','GET'])
 def plant_photo():
     planthandler = ph.PlantHandler()
     if request.method =='PUT':
+
         name = request.args.get('name')
-        planthandler.get_plant(name)
+        print(name)
+        content = request.json
+        print(content)
+        if (platform.system() == "Windows"):
+            newfolder = "Z:\\Plant\\Plants\\" + name +"\\"
+
+            newf  = "/mnt/share/Plant/Plants/" + name
+            with open(newfolder+content["Name"], "wb") as fh:
+                fh.write(base64.b64decode(content['Base64Encoded']))
+                imageData = {}
+                imageData['Plant'] = name
+                imageData['filepath'] = newf + content["Name"]
+                imageData['upload_time'] = time.time()
+                planthandler.add_plant_image_record(imageData)
+
+
+        else:
+            newfolder = "/mnt/share/Plant/Plants/" + name
+            with open(newfolder+content["Name"], "wb") as fh:
+                fh.write(base64.b64decode(content['Base64Encoded']))
+
+
     elif request.method =='GET':
-        print("nothing here now")
-    return make_response(200)
+        name = request.args.get('name')
+        photo = planthandler.get_plant_photo(name)
+        return send_file(photo['filepath'], mimetype='image/jpeg')
+
 
 
 @app.route("/stats")

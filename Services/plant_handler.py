@@ -17,3 +17,9 @@ class PlantHandler:
     def get_plant(self, name):
         plant = self.dbh.get_plant(name)
         return plant
+
+    def add_plant_image_record(self, imageData):
+        self.dbh.insert_plant_photo_record(imageData)
+
+    def get_plant_photo(self,plantName):
+        return  self.dbh.get_plant_photo(plantName)

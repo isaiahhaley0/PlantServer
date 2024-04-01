@@ -101,3 +101,12 @@ class DBHandler:
     def get_plant(self, name):
         coll = self.__db.plants
         return coll.find_one({"name":name})
+
+    def insert_plant_photo_record(self, imageData):
+        coll = self.__db.plant_image_record
+        coll.insert_one(imageData)
+
+    def get_plant_photo(self, name):
+
+        coll = self.__db.plant_image_record
+        return coll.find_one({"Plant":name}, sort=[('_id', pymongo.DESCENDING)])

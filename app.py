@@ -160,7 +160,7 @@ def plant_photo():
                 fh.write(base64.b64decode(content['Base64Encoded']))
                 imageData = {}
                 imageData['Plant'] = name
-                imageData['filepath'] = newf + content["Name"]
+                imageData['filepath'] = newf + "/" + content["Name"]
                 imageData['upload_time'] = time.time()
                 planthandler.add_plant_image_record(imageData)
 

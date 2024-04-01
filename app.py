@@ -166,7 +166,7 @@ def plant_photo():
 
 
         else:
-            newfolder = "/mnt/share/Plant/Plants/" + name
+            newfolder = "/mnt/share/Plant/Plants/" + name+"/"
             with open(newfolder+content["Name"], "wb") as fh:
                 fh.write(base64.b64decode(content['Base64Encoded']))
 

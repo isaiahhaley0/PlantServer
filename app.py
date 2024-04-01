@@ -174,7 +174,12 @@ def plant_photo():
     elif request.method =='GET':
         name = request.args.get('name')
         photo = planthandler.get_plant_photo(name)
-        return send_file(photo['filepath'], mimetype='image/jpeg')
+        if platform.system() == "Windows":
+            fp = photo['filepath']
+            fp = fp.replace("/mnt/share","Z:/")
+            return send_file(fp, mimetype='image/jpeg')
+        else:
+            return send_file(photo['filepath'], mimetype='image/jpeg')
 
 
 

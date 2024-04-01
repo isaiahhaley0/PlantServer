@@ -97,3 +97,7 @@ class DBHandler:
     def get_plants(self):
         coll = self.__db.plants
         return coll.find({})
+
+    def get_plant(self, name):
+        coll = self.__db.plants
+        return coll.find_one({"name":name})

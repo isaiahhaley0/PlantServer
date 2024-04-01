@@ -119,13 +119,24 @@ def plant():
     planthandler = ph.PlantHandler()
     if request.method =='PUT':
         content = request.json
-        planthandler.add_plant(content)
         newfolder = "/mnt/share/Plant/"+content["name"]
+        content["plant_photos"] = newfolder
+        planthandler.add_plant(content)
         if not os.path.exists(newfolder):
             os.makedirs(newfolder)
     elif request.method =='GET':
         plants = planthandler.get_all()
         return json.dumps(plants)
+    return make_response(200)
+
+@app.route("/plants/photos",methods=['PUT','GET'])
+def plant_photo():
+    planthandler = ph.PlantHandler()
+    if request.method =='PUT':
+        name = request.args.get('name')
+        planthandler.get_plant(name)
+    elif request.method =='GET':
+        print("nothing here now")
     return make_response(200)
 
 

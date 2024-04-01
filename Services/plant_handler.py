@@ -13,3 +13,7 @@ class PlantHandler:
         for plant in plants:
             plant['_id'] = str(plant['_id'])
         return plants
+
+    def get_plant(self, name):
+        plant = self.dbh.get_plant(name)
+        return plant

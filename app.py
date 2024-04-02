@@ -162,6 +162,7 @@ def plant_photo():
                 imageData['Plant'] = name
                 imageData['filepath'] = newf + "/" + content["Name"]
                 imageData['upload_time'] = time.time()
+
                 planthandler.add_plant_image_record(imageData)
 
 
@@ -169,8 +170,7 @@ def plant_photo():
             newfolder = "/mnt/share/Plant/Plants/" + name+"/"
             with open(newfolder+content["Name"], "wb") as fh:
                 fh.write(base64.b64decode(content['Base64Encoded']))
-
-
+        return 200
     elif request.method =='GET':
         name = request.args.get('name')
         photo = planthandler.get_plant_photo(name)

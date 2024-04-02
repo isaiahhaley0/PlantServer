@@ -109,13 +109,14 @@ def upload_photo():
 #@app.route("/status")
 #def get_server_status():
 
-@app.route("/water",methods=['POST'])
+@app.route("/water",methods=['POST','PATCH'])
 def water_plants():
     content = request.json
     print(content)
     mhd.Record_Watering(content)
+    mhd.Update_Plant(content)
     res = {'status':'Watered'}
-    return make_response(200)
+    return make_response( jsonify(res))
 
 
 @app.route("/plants",methods=['PUT','GET'])

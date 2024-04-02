@@ -110,3 +110,9 @@ class DBHandler:
 
         coll = self.__db.plant_image_record
         return coll.find_one({"Plant":name}, sort=[('_id', pymongo.DESCENDING)])
+
+    def Update_Plant(self,  content):
+        coll = self.__db.plants
+        coll.update_one({'Name':content['PlantName']},{'$set':{
+            'LastWaterDate':content['WateringTime']
+        }})

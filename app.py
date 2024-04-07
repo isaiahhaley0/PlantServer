@@ -116,7 +116,7 @@ def water_plants():
     mhd.Record_Watering(content)
     mhd.Update_Plant(content)
     res = {'status':'Watered'}
-    return make_response( jsonify(res))
+    return make_response(jsonify(res))
 
 
 @app.route("/plants",methods=['PUT','GET'])

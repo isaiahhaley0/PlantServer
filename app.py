@@ -118,7 +118,7 @@ def water_plants():
     res = {'status':'Watered'}
     return make_response(jsonify(res))
 
-#update this   
+#update this
 @app.route("/plants",methods=['PUT','GET'])
 def plant():
     planthandler = ph.PlantHandler()
